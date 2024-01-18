@@ -6,6 +6,9 @@ const parsers = (data, format) => {
   }
   if (format === 'yaml') {
     return YAML.load(data);
+  }
+  if (format === 'yml') {
+    return YAML.load(data);
   } else {
     return null;
   }
