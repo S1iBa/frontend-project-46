@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _sortBy from 'lodash/sortBy';
 
 const buildTree = (file1, file2) => {
   const iter = (data1, data2) => {
@@ -6,7 +6,7 @@ const buildTree = (file1, file2) => {
     const keys2 = Object.keys(data2);
 
     const uniqKeys = Array.from(new Set(keys1.concat(keys2)));
-    const sortedKeys = _.sort([...uniqKeys]);
+    const sortedKeys = _sortBy([...uniqKeys]);
 
     return sortedKeys.map((key) => {
       if (Object.hasOwn(data1, key) && !Object.hasOwn(data2, key)) {
