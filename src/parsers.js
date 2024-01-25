@@ -9,9 +9,8 @@ const parsers = (data, format) => {
   }
   if (format === 'yml') {
     return YAML.load(data);
-  } else {
-    return null;
   }
+  return null;
 };
 
 export { parsers };

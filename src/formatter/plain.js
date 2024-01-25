@@ -4,13 +4,11 @@ const stringify = (value) => {
   }
   if (typeof value === 'string') {
     return `'${value}'`;
-  } else {
-    return value;
   }
+  return value;
 };
 
-const makePath = (node, newPath) =>
-  newPath !== '' ? `${newPath}.${node.key}` : node.key;
+const makePath = (node, newPath) => (newPath !== '' ? `${newPath}.${node.key}` : node.key);
 
 const plain = (ast) => {
   const iter = (node, path) => {

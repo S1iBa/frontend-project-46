@@ -7,11 +7,10 @@ const stringify = (value, depth) => {
 
   const fields = Object.entries(value)
     .map(
-      ([key, val]) =>
-        `${' '.repeat((depth + 1) * countSpace)}${key}: ${stringify(
-          val,
-          depth + 1,
-        )}`,
+      ([key, val]) => `${' '.repeat((depth + 1) * countSpace)}${key}: ${stringify(
+        val,
+        depth + 1,
+      )}`,
     )
     .join('\n');
 
