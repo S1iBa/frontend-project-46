@@ -1,4 +1,4 @@
-import _sortBy from 'lodash/sortBy';
+import _sortBy from 'lodash/sortBy.js';
 
 const buildTree = (file1, file2) => {
   const iter = (data1, data2) => {
