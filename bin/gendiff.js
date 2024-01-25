@@ -1,4 +1,4 @@
-import program from 'commander';
+import { program } from 'commander';
 import genDiff from '../src/index.js';
 
 // const program = new Command();
