@@ -10,7 +10,6 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format <type>', 'output format', 'stylish')
   .action(function (filepath1, filepath2, dict) {
-    console.log(JSON.stringify(dict));
     const diff = genDiff(filepath1, filepath2, dict.format ?? 'stylish');
     console.log(diff);
   });
