@@ -1,8 +1,8 @@
 import { readFileSync } from 'fs';
 import path from 'path';
-import { parsers } from './parsers';
-import tree from './formatter/tree';
-import formatter from './formatter/index';
+import { parsers } from './parsers.js';
+import tree from './formatter/tree.js';
+import formatter from './formatter/index.js';
 
 const getFormat = (filepath) => {
   const f = filepath.split('.');
