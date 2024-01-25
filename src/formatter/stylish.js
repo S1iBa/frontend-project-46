@@ -71,6 +71,9 @@ const stylish = (ast) => {
           depth,
         )}`;
       }
+      default: {
+        return null;
+      }
     }
   };
 

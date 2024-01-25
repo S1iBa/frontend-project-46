@@ -11,6 +11,7 @@ const formatter = (diff, formatStyle) => {
   if (formatStyle === 'json') {
     return JSON.stringify(diff);
   }
+  return null;
 };
 
 export default formatter;

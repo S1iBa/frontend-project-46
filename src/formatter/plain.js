@@ -43,6 +43,9 @@ const plain = (ast) => {
       case 'unchanged': {
         return [];
       }
+      default: {
+        return null;
+      }
     }
   };
   const result = iter(ast, '');

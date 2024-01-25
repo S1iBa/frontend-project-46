@@ -13,4 +13,4 @@ const parsers = (data, format) => {
   return null;
 };
 
-export { parsers };
+export default parsers;
