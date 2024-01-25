@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import path from 'path';
 import { parsers } from './parsers';
 import tree from './formatter/tree';
-import format from './formatter/stylish';
+import formatter from './formatter/index';
 
 const getFormat = (filepath) => {
   const f = filepath.split('.');
@@ -16,12 +16,10 @@ const readFile = (filepath) => {
   return parsers(data, getFormat(filepath));
 };
 
-//гендифф будет принимать форматтер
-
-const genDiff = (filepath1, filepath2, formatter = 'stylish') => {
+const genDiff = (filepath1, filepath2, format = 'stylish') => {
   const file1 = readFile(filepath1);
   const file2 = readFile(filepath2);
   const diff = tree(file1, file2);
-  return format(diff, formatter);
+  return formatter(diff, format);
 };
 export default genDiff;

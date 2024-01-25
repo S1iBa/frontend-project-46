@@ -3,7 +3,6 @@ import genDiff from '../src';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import { readFileSync } from 'fs';
-import { parsers } from '../src/parsers';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,8 +20,13 @@ test.each(formats)('genDiff should work correctly', (format) => {
   expect(genDiff(filepath1, filepath2)).toEqual(
     readFixture('expectedStylish.txt'),
   );
-  genDiff(filepath1, filepath2, 'stylish').toEqual(
+  expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(
     readFixture('expectedStylish.txt'),
   );
-  // expect(reverse('')).toEqual('');
+  expect(genDiff(filepath1, filepath2, 'plain')).toEqual(
+    readFixture('expectedPlain.txt'),
+  );
+  expect(genDiff(filepath1, filepath2, 'json')).toEqual(
+    readFixture('expectedJSON.txt'),
+  );
 });

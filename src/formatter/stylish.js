@@ -1,39 +1,81 @@
-const format = (difObj, outputType = 'json') => {
-  if (outputType === 'json') {
-    return createOutputStrJSON(difObj);
+const countSpace = 4;
+
+const stringify = (value, depth) => {
+  if (typeof value !== 'object' || value === null) {
+    return value;
   }
-  if (outputType === 'yaml') {
-    return createOutputStrYAML(difObj);
-  }
-  if (outputType === 'yml') {
-    return createOutputStrYAML(difObj);
-  }
+
+  const fields = Object.entries(value)
+    .map(
+      ([key, val]) =>
+        `${' '.repeat((depth + 1) * countSpace)}${key}: ${stringify(
+          val,
+          depth + 1,
+        )}`,
+    )
+    .join('\n');
+
+  return `{\n${fields}\n${' '.repeat(depth * countSpace)}}`;
 };
 
-const createOutputStrJSON = (difObj) => {
-  let result = '{\n';
+const stylish = (ast) => {
+  const iter = (node, depth) => {
+    switch (node.type) {
+      case 'root': {
+        const fields = node.children
+          .flatMap((n) => iter(n, depth + 1))
+          .join('\n');
 
-  for (let key of Object.keys(difObj)) {
-    let value = difObj[key];
-    result += `${key}: ${value}\n`;
-  }
+        return `{\n${fields}\n}`;
+      }
 
-  result += '}';
+      case 'object': {
+        const fields = node.children
+          .flatMap((n) => iter(n, depth + 1))
+          .join('\n');
 
-  return result;
+        return `${' '.repeat(depth * countSpace)}${
+          node.key
+        }: {\n${fields}\n${' '.repeat(depth * countSpace)}}`;
+      }
+
+      case 'add': {
+        return `${' '.repeat(depth * countSpace - 2)}+ ${node.key}: ${stringify(
+          node.value,
+          depth,
+        )}`;
+      }
+
+      case 'remove': {
+        return `${' '.repeat(depth * countSpace - 2)}- ${node.key}: ${stringify(
+          node.value,
+          depth,
+        )}`;
+      }
+
+      case 'changed': {
+        return [
+          `${' '.repeat(depth * countSpace - 2)}- ${node.key}: ${stringify(
+            node.oldValue,
+            depth,
+          )}`,
+          `${' '.repeat(depth * countSpace - 2)}+ ${node.key}: ${stringify(
+            node.newValue,
+            depth,
+          )}`,
+        ];
+      }
+
+      case 'unchanged': {
+        return `${' '.repeat(depth * countSpace)}${node.key}: ${stringify(
+          node.value,
+          depth,
+        )}`;
+      }
+    }
+  };
+
+  return iter(ast, 0);
 };
 
-const createOutputStrYAML = (difObj) => {
-  let result = '\n';
-
-  for (let key of Object.keys(difObj)) {
-    let value = difObj[key];
-    result += `${key}: ${value}\n`;
-  }
-
-  result += '';
-
-  return result;
-};
-
-export default format;
+export default stylish;
