@@ -6,11 +6,11 @@ const parsersMap = {
   yml: YAML.load,
 };
 
-const parsers = (data, format) => {
+const getParsedData = (data, format) => {
   const parse = parsersMap[format];
   if (!parse) return null;
 
   return parse(data);
 };
 
-export default parsers;
+export default getParsedData;

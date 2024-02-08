@@ -1,6 +1,6 @@
 import { readFileSync } from 'fs';
 import path from 'path';
-import parsers from './parsers.js';
+import getParsedData from './parsers.js';
 import tree from '../tree.js';
 import formatter from './formatter/index.js';
 
@@ -12,7 +12,7 @@ const getFormat = (filepath) => {
 const readFile = (filepath) => {
   const fullPath = path.resolve(process.cwd(), filepath);
   const data = readFileSync(fullPath, 'utf-8');
-  return parsers(data, getFormat(filepath));
+  return getParsedData(data, getFormat(filepath));
 };
 
 const genDiff = (filepath1, filepath2, format = 'stylish') => {
