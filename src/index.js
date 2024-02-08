@@ -1,13 +1,12 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import parsers from './parsers.js';
-import tree from './formatter/tree.js';
+import tree from '../tree.js';
 import formatter from './formatter/index.js';
 
 const getFormat = (filepath) => {
-  const f = filepath.split('.');
-  const fmt = f[f.length - 1];
-  return fmt;
+  const fmt = path.extname(filepath).split('.');
+  return fmt[fmt.length - 1];
 };
 
 const readFile = (filepath) => {

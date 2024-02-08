@@ -2,8 +2,6 @@
 import { program } from 'commander';
 import genDiff from '../src/index.js';
 
-// const program = new Command();
-
 program
   .version('0.1')
   .arguments('<filepath1> <filepath2>')

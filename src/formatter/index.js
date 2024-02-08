@@ -1,17 +1,18 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
+const formatterMap = {
+  stylish,
+  plain,
+  json: JSON.stringify,
+};
+
 const formatter = (diff, formatStyle) => {
-  if (formatStyle === 'stylish') {
-    return stylish(diff);
-  }
-  if (formatStyle === 'plain') {
-    return plain(diff);
-  }
-  if (formatStyle === 'json') {
-    return JSON.stringify(diff);
-  }
-  return null;
+  const mapper = formatterMap[formatStyle];
+
+  if (!mapper) return null;
+
+  return mapper(diff);
 };
 
 export default formatter;
