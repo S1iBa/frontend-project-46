@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import path from 'path';
 import getParsedData from './parsers.js';
-import tree from '../tree.js';
+import tree from './tree.js';
 import formatter from './formatter/index.js';
 
 const getFormat = (filepath) => {
